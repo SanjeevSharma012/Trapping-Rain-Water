@@ -1,0 +1,52 @@
+1. Solution
+
+class Solution {
+    public int maxWater(int arr[]) {
+        // code here
+        int n = arr.length ;
+       int[] lfmax = new int[n] ; int[] rtmax = new int [n];
+       int units = 0 ;
+       
+       lfmax[0] = arr[0];
+       for(int i = 1 ; i < n ; i++){
+           lfmax[i] = Math.max(lfmax[i - 1] , arr[i]);
+       }
+       
+       rtmax[n-1]=arr[n-1];
+       for(int i = n - 2 ; i >= 0 ; i--){
+           rtmax[i] = Math.max(rtmax[i + 1] , arr[i]);
+       }
+       
+       for(int i = 0 ; i < n ; i++){
+           units += Math.min(lfmax[i] , rtmax[i]) - arr[i];
+       }
+       return units;
+    }
+}
+
+2.Solution
+
+class Solution {
+    public int maxWater(int arr[]) {
+        // code here
+        int n = arr.length ;
+        int l = 0 , r = n - 1;
+        int lfmax = 0 , rtmax = 0 ;
+        int units = 0;
+        while(l < r){
+            lfmax = Math.max(lfmax , arr[l]);
+            rtmax = Math.max(rtmax , arr[r]);
+            
+            if(lfmax < rtmax){
+                units += lfmax - arr[l]; 
+                l++;
+            }
+             else {
+                 units += rtmax - arr[r]; 
+                r--;
+             }
+        }
+        return units ;
+    }
+}
+
